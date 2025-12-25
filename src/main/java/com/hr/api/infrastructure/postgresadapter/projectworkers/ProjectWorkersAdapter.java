@@ -66,9 +66,8 @@ public class ProjectWorkersAdapter implements ProjectWorkersFetcher{
             .filter(item -> item.getProject().getId() == projectId)
             .toList();
         if (projectWorkers.size() != 1) {
-            System.out.println("Error deleting ProkectWorkes : " + projectWorkers.size());
+            System.out.println("Error deleting ProkectWorkes, number of element : " + projectWorkers.size());
         } else {
-            //projectWorkersRepository.deleteByEmployeeIdAndProjectId(employeeId, projectId);
             projectWorkersRepository.deleteById(projectWorkers.get(0).getId());
         }
     }
