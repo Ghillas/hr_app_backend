@@ -14,7 +14,7 @@ This repository contains two versions of the backend:
 - No authentication
 - Focus on API design and data persistence
 
-### `auth-jwt` branch (work in progress)
+### `withAuthentication` branch (work in progress)
 - JWT-based authentication
 - Spring Security integration
 - Secured endpoints
@@ -27,8 +27,8 @@ This repository contains two versions of the backend:
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL
-- Spring Security (auth-jwt branch)
-- JWT (auth-jwt branch)
+- Spring Security (withAuthentication branch)
+- JWT (withAuthentication branch)
 
 ---
 
