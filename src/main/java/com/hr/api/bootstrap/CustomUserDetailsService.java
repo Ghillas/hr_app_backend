@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.hr.api.infrastructure.postgresadapter.dbuser.DBUser;
@@ -24,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
         DBUser user = dbUserRepository.findByUsername(username);
-        if (user == null) {
+        if (user == null) { // TODO : fix the case when the user is not in the database
             return new User(
                 "",
                 "",
