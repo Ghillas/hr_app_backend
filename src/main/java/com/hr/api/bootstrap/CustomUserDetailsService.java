@@ -9,9 +9,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.hr.api.infrastructure.postgresadapter.dbuser.DBUser;
 import com.hr.api.infrastructure.postgresadapter.dbuser.DBUserRepository;
 
 @Service
@@ -21,21 +21,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     private DBUserRepository dbUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        DBUser user = dbUserRepository.findByUsername(username);
-        if (user == null) { // TODO : fix the case when the user is not in the database
-            return new User(
-                "",
-                "",
-                new ArrayList<>()
-            );
-        } else {
-            return new User(
-                user.getUsername(), 
-                user.getPassword(), 
-                getGrantedAuthorities(user.getRole())
-            );
-        }
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { 
+        return dbUserRepository
+            .findByUsername(username)
+            .map(u -> new User(
+                u.getUsername(), 
+                u.getPassword(), 
+                getGrantedAuthorities(u.getRole())
+            ))
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(String role) {
