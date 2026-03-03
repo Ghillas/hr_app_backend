@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTService {
 
     private final String secretKey = "edc0c2ea99387d88f8bea095099ba9a90ac194796414375885c77d59ca850c68";
-    private final long jwtExpiration = 3600000;
+    private final long jwtExpiration = 60 * 60 * 1000; // 1 heure
     //TODO : move it from here
 
     public String extractUsername(String token) {

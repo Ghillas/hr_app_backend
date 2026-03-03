@@ -39,7 +39,7 @@ public class SpringSecurityConfig {
         })
         .authorizeHttpRequests(auth -> {
             auth
-            .requestMatchers("/auth/login").permitAll()
+            .requestMatchers("/auth/*").permitAll()
             .anyRequest().authenticated();
         })
         .authenticationProvider(authenticationProvider)
@@ -59,18 +59,5 @@ public class SpringSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-    /* 
-    @Bean
-    public JwtEncoder jwtEncoder() {
-        return new NimbusJwtEncoder(new ImmutableSecret<>(this.secretKey.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec(this.secretKey.getBytes(), 0, this.secretKey.getBytes().length,"HmacSHA256");
-        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
-    }
-*/
 
 }
